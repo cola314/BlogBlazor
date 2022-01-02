@@ -1,11 +1,20 @@
 using BlazorStyled;
 using BlogBlazor.Shared.Styles;
+using Fluxor;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddBlazorStyled();
+
+builder.Services.AddFluxor(o =>
+{
+    o.ScanAssemblies(typeof(Program).Assembly);
+
+    if (builder.Environment.IsDevelopment())
+        o.UseReduxDevTools();
+});
 
 builder.Services.AddSingleton<Palette>();
 
