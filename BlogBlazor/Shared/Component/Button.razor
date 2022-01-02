@@ -1,0 +1,29 @@
+﻿@inject IStyled Styled
+@inject Palette Palette
+
+<Styled @bind-Classname="@button">
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.25rem 1rem;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    
+    background: @Palette.Gray[8];
+    &:hover {
+        background: @Palette.Gray[6];
+    }
+</Styled>
+
+<button class="@button">
+    @ChildContent
+</button>
+
+@code {
+    private string button;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}
