@@ -1,0 +1,13 @@
+﻿@page "/"
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@namespace BlogBlazor.Pages
+
+<html>
+    <head>
+        <base href="~/" />
+    </head>
+    <body>
+        <component type="typeof(App)" render-mode="ServerPrerendered" />
+        <script src="_framework/blazor.server.js"></script>
+    </body>
+</html>

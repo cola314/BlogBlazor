@@ -1,0 +1,13 @@
+﻿@page "/"
+@page "/HelloWorld"
+
+@code {
+    string Message { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Message = "Hello World";
+    }
+}
+
+<h1>@Message</h1>

@@ -1,0 +1,10 @@
+﻿<Router AppAssembly="@typeof(Program).Assembly" PreferExactMatches="@true">
+    <Found Context="routeData">
+        <RouteView RouteData="@routeData"/>
+    </Found>
+    <NotFound>
+        <LayoutView>
+            <h1>Invalid Address</h1>
+        </LayoutView>
+    </NotFound>
+</Router>
