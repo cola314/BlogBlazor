@@ -1,0 +1,47 @@
+﻿@inject IStyled Styled
+@inject Palette Palette
+
+<Styled @bind-Classname="@authTemplateBlock">
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: @Palette.Gray[2];
+    /* flex로 내부 내용 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+</Styled>
+
+<Styled @bind-Classname="@whiteBox">
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.025);
+    padding: 2rem;
+    width: 360px;
+    background: white;
+    border-radius: 2px;
+    & .logo-area {
+        display: block;
+        padding-bottom: 2rem;
+        text-align: center;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+</Styled>
+
+<div class="@authTemplateBlock">
+    <div class="@whiteBox">
+        <div class="logo-area">
+            <NavLink href="/">REACTERS</NavLink>
+        </div>
+        @ChildContent
+    </div>
+</div>
+
+@code {
+    private string authTemplateBlock, whiteBox, logoArea;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+}

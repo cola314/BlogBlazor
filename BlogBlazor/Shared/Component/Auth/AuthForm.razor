@@ -1,0 +1,94 @@
+﻿@using System.ComponentModel
+@inject IStyled Styled
+@inject Palette Palette
+
+<Styled @bind-Classname="@authFormBlock">
+    & h3 {
+        margin: 0;
+        color: @Palette.Gray[8];
+        margin-bottom: 1rem;
+    }
+</Styled>
+
+<Styled @bind-Classname="@styledInput">
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid @Palette.Gray[5];
+    padding-bottom: 0.5rem;
+    outline: none;
+    width: 100%;
+    &:focus {
+        color: $oc-teal-7;
+        border-bottom: 1px solid @Palette.Gray[7];
+    }
+    & + & {
+        margin-top: 1rem;
+    }
+</Styled>
+
+<Styled @bind-Classname="@footer">
+    margin-top: 2rem;
+    text-align: right;
+    & a {
+        color: @Palette.Gray[6];
+        text-decoration: underline;
+        &:hover {
+            color: @Palette.Gray[9];
+        }
+    }
+</Styled>
+
+<Styled @bind-Classname="@buttonWithMarginTop">
+    margin-top: 1rem;
+</Styled>
+
+<div class="@authFormBlock">
+    <h3>@Text</h3>
+    <form>
+        <input class="@styledInput" autocomplete="username" name="username" placeholder="아이디" />
+        <input class="@styledInput" autocomplete="new-password" name="password" placeholder="비밀번호" type="password" />
+        @if (Type == AuthFormType.Register)
+        {
+            <input 
+                class="@styledInput"
+                autocomplete="new-password"
+                name="passwordConfirm"
+                placeholder="비밀번호 확인"
+                type="password"/>
+        }
+        <Button Class="@buttonWithMarginTop" Cyan FullWidth>
+            @Text
+        </Button>
+    </form>
+    <div class="@footer">
+        @if (Type == AuthFormType.Login)
+        {
+            <NavLink href="/register">회원가입</NavLink>
+        }
+        else
+        {
+            <NavLink href="/login">로그인</NavLink>
+        }
+    </div>
+</div>
+
+@code {
+    private string authFormBlock, styledInput, footer, buttonWithMarginTop;
+
+    public enum AuthFormType
+    {
+        Login,
+        Register,
+    }
+
+    private Dictionary<AuthFormType, string> TextMap { get; } = new Dictionary<AuthFormType, string>
+    {
+        { AuthFormType.Login, "로그인" },
+        { AuthFormType.Register, "회원가입" },
+    };
+
+    private string Text => TextMap[Type];
+
+    [Parameter]
+    public AuthFormType Type { get; set; }
+}

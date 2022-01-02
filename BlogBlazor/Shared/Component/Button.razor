@@ -1,7 +1,9 @@
 ﻿@inject IStyled Styled
 @inject Palette Palette
 
-<Styled @bind-Classname="@button">
+<Styled @bind-Classname="@button" 
+        ComposeFullWidth="@fullWidth" ComposeFullWidthIf="@FullWidth"
+        ComposeCyan="@cyan" ComposeCyanIf="@Cyan">
     border: none;
     border-radius: 4px;
     font-size: 1rem;
@@ -17,13 +19,36 @@
     }
 </Styled>
 
-<button class="@button">
+<Styled @bind-Classname="@fullWidth">
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    width: 100%;
+    font-size: 1.125rem;
+</Styled>
+
+<Styled @bind-Classname="@cyan">
+    background: @Palette.Cyan[5];
+    &:hover {
+        background: @Palette.Cyan[4];
+    }
+</Styled>
+
+<button class="@button @Class">
     @ChildContent
 </button>
 
 @code {
-    private string button;
+    private string button, fullWidth, cyan;
 
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
+
+    [Parameter]
+    public string Class { get; set; }
+
+    [Parameter]
+    public bool FullWidth { get; set; }
+
+    [Parameter]
+    public bool Cyan { get; set; }
 }
