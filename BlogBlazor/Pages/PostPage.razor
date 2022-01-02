@@ -1,0 +1,11 @@
+﻿@page "/post/{postId}"
+
+<div>포스트 읽기</div>
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string Username { get; set; }
+    [Parameter]
+    public string PostId { get; set; }
+}
