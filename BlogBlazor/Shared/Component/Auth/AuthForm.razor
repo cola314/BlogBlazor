@@ -42,11 +42,29 @@
     margin-top: 1rem;
 </Styled>
 
+<Styled @bind-Classname="@errorMessage">
+    color: red;
+    text-align: center;
+    font-size: 0.875rem;
+    margin-top: 1rem;
+</Styled>
+
 <div class="@authFormBlock">
     <h3>@Text</h3>
-    <form>
-        <input class="@styledInput" autocomplete="username" name="username" placeholder="아이디" />
-        <input class="@styledInput" autocomplete="new-password" name="password" placeholder="비밀번호" type="password" />
+    <form @onsubmit=@OnSubmit @onsubmit:preventDefault="true">
+        <input 
+            class="@styledInput"
+            autocomplete="username"
+            name="username" 
+            placeholder="아이디"
+            @bind=@Username/>
+        <input
+            class="@styledInput"
+            autocomplete="new-password"
+            name="password" 
+            placeholder="비밀번호"
+            type="password"
+            @bind=@Password/>
         @if (Type == AuthFormType.Register)
         {
             <input 
@@ -54,7 +72,12 @@
                 autocomplete="new-password"
                 name="passwordConfirm"
                 placeholder="비밀번호 확인"
-                type="password"/>
+                type="password"
+                @bind=@PasswordConfirm/>
+        }
+        @if (!string.IsNullOrEmpty(ErrorMessage))
+        {
+            <div class="@errorMessage">@ErrorMessage</div>
         }
         <Button Class="@buttonWithMarginTop" Cyan FullWidth>
             @Text
@@ -73,22 +96,5 @@
 </div>
 
 @code {
-    private string authFormBlock, styledInput, footer, buttonWithMarginTop;
-
-    public enum AuthFormType
-    {
-        Login,
-        Register,
-    }
-
-    private Dictionary<AuthFormType, string> TextMap { get; } = new Dictionary<AuthFormType, string>
-    {
-        { AuthFormType.Login, "로그인" },
-        { AuthFormType.Register, "회원가입" },
-    };
-
-    private string Text => TextMap[Type];
-
-    [Parameter]
-    public AuthFormType Type { get; set; }
+    private string authFormBlock, styledInput, footer, buttonWithMarginTop, errorMessage;
 }
