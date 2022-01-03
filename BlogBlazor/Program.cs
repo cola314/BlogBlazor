@@ -1,6 +1,9 @@
 using BlazorStyled;
+using BlogBlazor.Data;
+using BlogBlazor.Services;
 using BlogBlazor.Shared.Styles;
 using Fluxor;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +19,13 @@ builder.Services.AddFluxor(o =>
         o.UseReduxDevTools();
 });
 
+builder.Services.AddDbContext<AppDbContext>(option =>
+{
+    option.UseInMemoryDatabase("db");
+});
+
 builder.Services.AddSingleton<Palette>();
+builder.Services.AddScoped<UserService>();
 
 var app = builder.Build();
 
