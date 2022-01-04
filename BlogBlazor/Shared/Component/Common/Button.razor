@@ -1,5 +1,6 @@
 ﻿@inject IStyled Styled
 @inject Palette Palette
+@inject NavigationManager NavigationManager
 
 <Styled @bind-Classname="@button" 
         ComposeFullWidth="@fullWidth" ComposeFullWidthIf="@FullWidth"
@@ -33,9 +34,14 @@
     }
 </Styled>
 
-<button class="@button @Class">
-    @ChildContent
-</button>
+@if (To != null)
+{
+    <NavLink class="@(button + " " + Class)" href="@To">@ChildContent</NavLink>
+}
+else
+{
+    <button class="@button @Class">@ChildContent</button>
+}
 
 @code {
     private string button, fullWidth, cyan;
@@ -44,11 +50,14 @@
     public RenderFragment? ChildContent { get; set; }
 
     [Parameter]
-    public string Class { get; set; }
+    public string? Class { get; set; }
 
     [Parameter]
     public bool FullWidth { get; set; }
 
     [Parameter]
     public bool Cyan { get; set; }
+
+    [Parameter]
+    public string? To { get; set; }
 }

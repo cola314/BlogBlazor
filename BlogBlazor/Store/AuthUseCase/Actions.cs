@@ -4,7 +4,7 @@ public class RegisterAction
 {
     public class Request
     {
-        public string UserName { get; init; }
+        public string Username { get; init; }
         public string Password { get; init; }
     }
 
@@ -23,7 +23,7 @@ public class LoginAction
 {
     public class Request
     {
-        public string UserName { get; init; }
+        public string Username { get; init; }
         public string Password { get; init; }
     }
 

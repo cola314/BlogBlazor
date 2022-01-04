@@ -1,6 +1,7 @@
 ﻿using BlogBlazor.Store.AuthUseCase;
 using Fluxor;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace BlogBlazor.Shared.Component.Auth;
 
@@ -35,20 +36,24 @@ public partial class AuthForm : IDisposable
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 
+    [Inject]
+    private ProtectedLocalStorage LocalStorage { get; set; }
+
     protected override void OnInitialized()
     {
         AuthState.StateChanged += AuthState_StateChanged;
     }
 
-    private void AuthState_StateChanged(object? sender, AuthState e)
+    private async void AuthState_StateChanged(object? sender, AuthState e)
     {
         if (!string.IsNullOrEmpty(e.ErrorMessage))
         {
             ErrorMessage = e.ErrorMessage;
         }
-        if (!string.IsNullOrEmpty(e.Username))
+        else if (!string.IsNullOrEmpty(e.Username))
         {
             NavigationManager.NavigateTo("/");
+            await LocalStorage.SetAsync("user", Username);
         }
     }
 
@@ -63,7 +68,7 @@ public partial class AuthForm : IDisposable
         {
             Dispatcher.Dispatch(new LoginAction.Request()
             {
-                UserName = Username,
+                Username = Username,
                 Password = Password,
             });
         }
@@ -85,7 +90,7 @@ public partial class AuthForm : IDisposable
             {
                 Dispatcher.Dispatch(new RegisterAction.Request()
                 {
-                    UserName = Username,
+                    Username = Username,
                     Password = Password,
                 });
             }

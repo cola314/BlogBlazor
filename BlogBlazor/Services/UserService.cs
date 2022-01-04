@@ -20,6 +20,6 @@ public class UserService
 
     public async Task<bool> ExistUser(string username, string password)
     {
-        return await _dbContext.Users.AnyAsync(user => user.UserName == username && user.Password == password);
+        return await _dbContext.Users.AnyAsync(user => user.Username == username && user.Password == password);
     }
 }

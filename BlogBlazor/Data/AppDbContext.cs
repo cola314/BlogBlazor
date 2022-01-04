@@ -12,7 +12,7 @@ public class AppDbContext : DbContext
     {
         builder.Entity<User>(entity =>
         {
-            entity.HasIndex(u => u.UserName).IsUnique();
+            entity.HasIndex(u => u.Username).IsUnique();
         });
     }
 

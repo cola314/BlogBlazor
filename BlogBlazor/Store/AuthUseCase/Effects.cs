@@ -17,8 +17,8 @@ public class Effects
     {
         try
         {
-            await _userService.AddUser(action.UserName, action.Password);
-            dispatcher.Dispatch(new RegisterAction.Success() { Username = action.UserName });
+            await _userService.AddUser(action.Username, action.Password);
+            dispatcher.Dispatch(new RegisterAction.Success() { Username = action.Username });
         }
         catch (Exception ex)
         {
@@ -31,9 +31,9 @@ public class Effects
     {
         try
         {
-            if (await _userService.ExistUser(action.UserName, action.Password))
+            if (await _userService.ExistUser(action.Username, action.Password))
             {
-                dispatcher.Dispatch(new RegisterAction.Success() { Username = action.UserName });
+                dispatcher.Dispatch(new RegisterAction.Success() { Username = action.Username });
             }
             else
             {

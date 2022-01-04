@@ -1,0 +1,60 @@
+﻿@inject IStyled Styled
+
+<Styled @bind-Classname="@headerBlock">
+    position: fixed;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.08);
+</Styled>
+
+<Styled @bind-Classname="@wrapper">
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    & .logo {
+        font-size: 1.125rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+    }
+    & .right {
+        display: flex;
+        align-items: center;
+    }
+</Styled>
+
+<Styled @bind-Classname="@spacer">
+    height: 4rem;
+</Styled>
+
+<Styled @bind-Classname="@userInfo">
+    font-weight: 800;
+    margin-right: 1rem;
+</Styled>
+
+<div class="@headerBlock">
+    <Responsive>
+        <div class="@wrapper">
+            <NavLink class="logo" href="/">REACTERS</NavLink>
+            @if (!string.IsNullOrEmpty(Username))
+            {
+                <div class="right">
+                    <div class="@userInfo">@Username</div>
+                    <Button>로그아웃</Button>
+                </div>
+            }
+            else
+            {
+                <div class="right">
+                    <Button To="/login">로그인</Button>
+                </div>
+            }
+        </div>
+    </Responsive>
+</div>
+<div class="@spacer" />
+
+
+@code {
+    private string headerBlock, wrapper, spacer, userInfo;
+}
